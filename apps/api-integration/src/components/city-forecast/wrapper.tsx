@@ -23,6 +23,7 @@ export default function CityForecastWrapper({
   });
 
   if (isLoading) return <CityCardSkeleton />;
+
   if (error)
     return (
       <ErrorCard message="Failed to load weather data" onRetry={refetch} />

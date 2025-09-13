@@ -11,7 +11,7 @@ export default function App() {
   return (
     <div className="min-h-screen w-full pb-10">
       <AppHeader />
-      <main className="mx-auto w-full max-w-[1200px] md:px-4">
+      <main className="mx-auto w-full max-w-[900px] md:px-4">
         <div>
           <div className="space-y-6">
             <ForecastSection />

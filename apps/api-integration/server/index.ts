@@ -8,7 +8,6 @@ const app = express();
 
 const OPEN_WEATHER_KEY = process.env.OPEN_WEATHER_KEY;
 const RAPID_API_KEY = process.env.RAPID_API_KEY;
-
 const OPEN_WEATHER_BASE_URL = "https://api.openweathermap.org/data/2.5";
 const RAPID_API_BASE_URL = "https://wft-geo-db.p.rapidapi.com/v1/geo";
 
@@ -148,7 +147,7 @@ app.get("/api/geo", async (_req, res) => {
       return res.json([]);
     }
 
-    const url = `${OPEN_WEATHER_BASE_URL}/geo/1.0/direct?q=${encodeURIComponent(
+    const url = `https://api.openweathermap.org/geo/1.0/direct?q=${encodeURIComponent(
       q
     )}&limit=${limit}&appid=${OPEN_WEATHER_KEY}`;
 

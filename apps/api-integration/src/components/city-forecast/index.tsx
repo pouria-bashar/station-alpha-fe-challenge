@@ -11,17 +11,15 @@ export default function CityForecastCard({
   icon,
 }: CityForecastCardProps) {
   return (
-    <div className="flex h-full flex-col items-center justify-between py-4 bg-background rounded-sm select-none p-4">
+    <div className="flex h-full flex-col items-center justify-between py-4 bg-background rounded-sm select-none gap-4">
       <div className="text-xs font-semibold line-clamp-1">{city}</div>
-      <div className="my-2 text-2xl">
-        <img
-          src={mapToWeatherIconsPath(icon)}
-          alt={icon}
-          width={40}
-          height={40}
-        />
-      </div>
-      <div className="text-xl font-semibold leading-none">{temperature}°</div>
+      <img
+        src={mapToWeatherIconsPath(icon)}
+        alt={icon}
+        width={40}
+        height={40}
+      />
+      <div className="text-lg font-semibold leading-none">{temperature}°</div>
     </div>
   );
 }
