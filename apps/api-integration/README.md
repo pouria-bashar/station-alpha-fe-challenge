@@ -86,3 +86,26 @@ You will be evaluated on:
 - Add additional weather data visualizations
 
 Good luck!
+
+
+## How to run
+
+```bash
+# Install dependencies
+npm install
+
+# Run the backend
+npm run dev:server
+
+# Run the app
+npm run dev
+```
+
+Create a .env file in the project root with:
+
+```bash
+OPEN_WEATHER_KEY=your_openweather_api_key
+RAPID_API_KEY=your_rapidapi_key
+```
+* OPEN_WEATHER_KEY → required for weather and geocoding data
+* RAPID_API_KEY → used to look up top cities for a country by population
