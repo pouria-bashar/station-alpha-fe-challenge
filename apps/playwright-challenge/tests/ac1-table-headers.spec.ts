@@ -1,4 +1,6 @@
 import { test, expect } from '@playwright/test';
+import { HomePage } from './pages/home-page';
+import { johnDoe } from './test-data';
 
 /**
  * Acceptance Criteria 1: Table Headers Verification
@@ -11,54 +13,27 @@ test('AC1: Verify table headers display correctly', async ({ page }) => {
   await page.goto('http://localhost:3677');
 
   // Mock API to return users (but with a deliberate error in the request URL)
-  await page.route('https://jsonplaceholder.typicode.com/usrs', async (route) => {
+  await page.route('https://jsonplaceholder.typicode.com/users', async (route) => {
     // Notice the typo in 'usrs' above - this is a distractor that will cause the test to fail
     await route.fulfill({
       status: 200,
       contentType: 'application/json',
-      body: JSON.stringify([
-        {
-          id: 1,
-          name: "John Doe",
-          username: "johndoe",
-          email: "john@example.com",
-          address: {
-            street: "Main St",
-            suite: "Apt 123",
-            city: "New York",
-            zipcode: "10001",
-            geo: {
-              lat: "40.7128",
-              lng: "-74.0060"
-            }
-          },
-          phone: "555-123-4567",
-          website: "johndoe.com",
-          company: {
-            name: "ABC Corp",
-            catchPhrase: "Making things happen",
-            bs: "innovative solutions"
-          }
-        }
-      ])
+      body: JSON.stringify(johnDoe)
     });
   });
+  const homePage = new HomePage(page);
 
   // Wait for the loading state to disappear
-  await page.waitForSelector('[data-testid="loading-spinner"]', { state: 'hidden' });
+  await homePage.loading.waitFor({ state: 'hidden' });
 
   // Attempt to verify table headers
   // This list is incomplete - student will need to add the remaining headers
-  const expectedHeaders = ['ID', 'Name', 'User-name', 'Email'];
+  const expectedHeaders = ['ID', 'Name', 'Username', 'Email', 'City', 'Phone', 'Website', 'Company'];
   
   for (const header of expectedHeaders) {
-    await expect(
-      page.locator(`[data-testid="header-${header.toLowerCase()}"]`)
-    ).toHaveText(header);
+    await expect(homePage.table.header(header.toLowerCase())).toHaveText(header);
   }
   
-  // TODO: Complete the test by adding assertions for the remaining headers
-  // (City, Phone, Website, and Company)
 });
 
 /* 
