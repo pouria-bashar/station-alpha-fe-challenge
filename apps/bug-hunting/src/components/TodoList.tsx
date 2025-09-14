@@ -1,24 +1,32 @@
-const TodoList = ({ todos, onToggle, onDelete }) => {
+import { Todo } from "../types/type";
+
+type TodoListProps = {
+  todos: Todo[];
+  onToggle: (id: number) => void;
+  onDelete: (id: number) => void;
+};
+
+const TodoList = ({ todos, onToggle, onDelete }: TodoListProps) => {
   return (
     <ul className="todo-list">
       {todos.map((todo) => (
-        <li className={`todo-item ${todo.completed ? 'completed' : ''}`}>
-          <input 
-            type="checkbox" 
-            checked={todo.complete} 
-            onChange={() => onToggle(todo)}
+        <li
+          key={todo.id}
+          className={`todo-item ${todo.completed ? "completed" : ""}`}
+        >
+          <input
+            type="checkbox"
+            checked={todo.completed}
+            onChange={() => onToggle(todo.id)}
           />
           <span>{todo.text}</span>
-          <button 
-            className="delete-btn"
-            onClick={onDelete(todo.id)}
-          >
+          <button className="delete-btn" onClick={() => onDelete(todo.id)}>
             Delete
           </button>
         </li>
       ))}
     </ul>
-  )
-}
+  );
+};
 
-export default TodoList 
+export default TodoList;

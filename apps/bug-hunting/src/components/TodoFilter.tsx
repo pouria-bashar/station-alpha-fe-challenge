@@ -1,38 +1,41 @@
-const TodoFilter = ({ filter, onFilter, onClearCompleted }) => {
-  const handleFilterChange = (newFilter) => {
-    onFilter(newFilter)
-  }
-  
+import { FilterType } from "../types/type";
+
+interface FilterProps {
+  value: FilterType;
+  onChange: (filter: FilterType) => void;
+  onClearCompleted: () => void;
+}
+
+type FilterOption = {
+  value: FilterType;
+  label: string;
+};
+
+export default function TodoFilter({
+  value,
+  onChange,
+  onClearCompleted,
+}: FilterProps) {
+  const filters: FilterOption[] = [
+    { value: "all", label: "All" },
+    { value: "active", label: "Active" },
+    { value: "completed", label: "Completed" },
+  ];
+
   return (
-    <div className="todo-filter">
-      <div className="filter-buttons">
-        <button 
-          className={filter === "all" && "active"} 
-          onClick={() => handleFilterChange("all")}
+    <div className="filter-buttons">
+      {filters.map((filter) => (
+        <button
+          key={filter.value}
+          onClick={() => onChange(filter.value)}
+          className={value === filter.value ? "active" : ""}
         >
-          All
+          {filter.label}
         </button>
-        <button 
-          className={`${filter === active ? "active" : ""}`} 
-          onClick={() => handleFilterChange("active")}
-        >
-          Active
-        </button>
-        <button 
-          className={filter == "completed" ? "active" : ""} 
-          onClick={() => handleFilterChange("completed")}
-        >
-          Completed
-        </button>
-      </div>
-      
-      <button 
-        className="clear-completed"
-        onClick={onClearCompleted()}
-      >
-        Clear completed
+      ))}
+      <button className="clear-completed" onClick={onClearCompleted}>
+        Clear Completed
       </button>
     </div>
-  )
+  );
 }
-export default TodoFilter 
