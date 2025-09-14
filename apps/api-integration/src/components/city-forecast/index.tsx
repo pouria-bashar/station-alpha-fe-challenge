@@ -1,25 +1,42 @@
-import { mapToWeatherIconsPath } from "@/lib/icon-mapping";
+import ErrorCard from "@/components/error-card";
+import WeatherCard from "@/components/weather-card";
+import { useAppConfig } from "@/hooks/useAppConfig";
+import { useLocationWeather } from "@/hooks/useLocationWeather";
+import { WeatherCardSkeleton } from "../weather-card/skeleton";
 
-interface CityForecastCardProps {
+type CityForecastWrapperProps = {
+  lat: number;
+  lon: number;
   city: string;
-  temperature: number;
-  icon: string;
-}
-export default function CityForecastCard({
+};
+
+export default function CityForecastWrapper({
+  lat,
+  lon,
   city,
-  temperature,
-  icon,
-}: CityForecastCardProps) {
+}: CityForecastWrapperProps) {
+  const { unit } = useAppConfig();
+  const { data, isLoading, error, refetch } = useLocationWeather({
+    lat,
+    lon,
+    unit,
+  });
+
+  if (isLoading) return <WeatherCardSkeleton />;
+
+  if (error)
+    return (
+      <ErrorCard message="Failed to load weather data" onRetry={refetch} />
+    );
+
+  if (!data?.main) return <ErrorCard onRetry={refetch} message="No data" />;
+
   return (
-    <div className="flex h-full flex-col items-center justify-between py-4 bg-background rounded-sm select-none gap-4">
-      <div className="text-xs font-semibold line-clamp-1">{city}</div>
-      <img
-        src={mapToWeatherIconsPath(icon)}
-        alt={icon}
-        width={40}
-        height={40}
-      />
-      <div className="text-lg font-semibold leading-none">{temperature}°</div>
-    </div>
+    <WeatherCard
+      maxTemp={data.main.temp_max}
+      minTemp={data.main.temp_min}
+      title={city}
+      icon={data.weather[0].icon}
+    />
   );
 }

@@ -1,9 +1,4 @@
-import { useAppConfig } from "@/hooks/useAppConfig";
-import { useDebounced } from "@/hooks/useDebounced";
-import { useGeoSearch } from "@/hooks/useGeoSearch";
-import { Search } from "lucide-react";
-import * as React from "react";
-import { Button } from "../ui/button";
+import { Button } from "@/components/ui/button";
 import {
   Command,
   CommandEmpty,
@@ -11,14 +6,23 @@ import {
   CommandInput,
   CommandItem,
   CommandList,
-} from "../ui/command";
-import { Popover, PopoverContent, PopoverTrigger } from "../ui/popover";
-import { Skeleton } from "../ui/skeleton";
+} from "@/components/ui/command";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import { Skeleton } from "@/components/ui/skeleton";
+import { useAppConfig } from "@/hooks/useAppConfig";
+import { useDebounced } from "@/hooks/useDebounced";
+import { useGeoSearch } from "@/hooks/useGeoSearch";
+import { Search } from "lucide-react";
+import { useState } from "react";
 
 export default function MobileCitySearchInput() {
   const { setLocation, location } = useAppConfig();
-  const [open, setOpen] = React.useState(false);
-  const [value, setValue] = React.useState(location.name);
+  const [open, setOpen] = useState(false);
+  const [value, setValue] = useState(location.name);
   const debounced = useDebounced(value, 250);
 
   const { data, isFetched, isFetching } = useGeoSearch({

@@ -1,12 +1,13 @@
+import CityForecastWrapper from "@/components/city-forecast";
+import ErrorCard from "@/components/error-card";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Skeleton } from "@/components/ui/skeleton";
+import { WeatherCardSkeleton } from "@/components/weather-card/skeleton";
 import { useAppConfig } from "@/hooks/useAppConfig";
 import { useTopCities } from "@/hooks/useTopCities";
 import React from "react";
-import CityForecastWrapper from "../city-forecast/wrapper";
-import ErrorCard from "../error-card";
-import { Card, CardContent, CardHeader, CardTitle } from "../ui/card";
-import { Skeleton } from "../ui/skeleton";
 
-const LIMIT = 6;
+const LIMIT = 7;
 export default function OtherCities() {
   const { location } = useAppConfig();
   const { data, isLoading, error, refetch } = useTopCities({
@@ -26,11 +27,11 @@ export default function OtherCities() {
     .slice(0, LIMIT);
 
   return (
-    <Card className="border-0">
+    <Card className="border-0 rounded-sm">
       <CardHeader>
         <CardTitle>Other cities</CardTitle>
       </CardHeader>
-      <CardContent className="space-y-3 grid grid-cols-3 md:grid-cols-6 gap-3">
+      <CardContent className="space-y-3 grid grid-cols-3 md:grid-cols-7 gap-3">
         {filteredData.map((c) => (
           <React.Fragment key={c.id}>
             <CityForecastWrapper
@@ -47,19 +48,12 @@ export default function OtherCities() {
 
 function OtherCitiesSkeleton() {
   return (
-    <Card className="border-0">
+    <Card className="border-0 rounded-sm">
       <CardContent>
         <Skeleton className="h-5 w-32 mb-4" />
-        <div className="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 gap-4">
+        <div className="grid grid-cols-3 md:grid-cols-6 gap-4">
           {Array.from({ length: 6 }).map((_, i) => (
-            <Card
-              key={i}
-              className="bg-background rounded-lg p-4 flex flex-col items-center justify-center  border-0"
-            >
-              <Skeleton className="h-4 w-12" />
-              <Skeleton className="h-4 w-8 rounded-full" />
-              <Skeleton className="h-6 w-16" />
-            </Card>
+            <WeatherCardSkeleton key={i} />
           ))}
         </div>
       </CardContent>

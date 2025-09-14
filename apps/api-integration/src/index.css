@@ -571,9 +571,9 @@ button:focus-visible {
 }
 
 .dark {
-  --background: oklch(0.147 0.004 49.25);
+  --background: #000000;
   --foreground: oklch(0.985 0.001 106.423);
-  --card: #12141a;
+  --card: #0a0a0a;
   --card-foreground: oklch(0.985 0.001 106.423);
   --popover: oklch(0.216 0.006 56.043);
   --popover-foreground: oklch(0.985 0.001 106.423);

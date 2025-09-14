@@ -1,43 +1,50 @@
-import { Card, CardContent } from "@/components/ui/card";
-import { Separator } from "@/components/ui/separator";
-import { mapToWeatherIconsPath } from "@/lib/icon-mapping";
+import ErrorCard from "@/components/error-card";
+import WeatherCard from "@/components/weather-card";
+import { WeatherCardSkeleton } from "@/components/weather-card/skeleton";
+import { useAppConfig } from "@/hooks/useAppConfig";
+import { useLocationForecast } from "@/hooks/useLocationForecast";
+import { format } from "date-fns";
 
-interface LocationForecastCardProps {
-  day: string;
-  icon: string;
-  temp: string;
-  condition: string;
-}
-export default function LocationForecastCard({
-  day,
-  icon,
-  temp,
-  condition,
-}: LocationForecastCardProps) {
+const DAYS = 6;
+export default function LocationForecastWrapper() {
+  const { location, unit } = useAppConfig();
+
+  const { data, isLoading, error, refetch } = useLocationForecast({
+    lat: location.lat,
+    lon: location.lon,
+    unit: unit,
+    count: DAYS,
+    type: "days",
+  });
+
+  if (isLoading) return <LocationForecastSkeleton />;
+  if (error)
+    return (
+      <ErrorCard message="Failed to load week days data" onRetry={refetch} />
+    );
+  if (!data) return <ErrorCard message="No data" onRetry={refetch} />;
+
   return (
-    <Card key={day} className="border-0 rounded-sm bg-background">
-      <CardContent className="flex flex-col items-center flex-1">
-        <div className="text-muted-foreground flex-1">
-          {day}
-          <div className="mt-3">
-            <Separator orientation="horizontal" />
-          </div>
-        </div>
-        <div className="my-2 gap-1 flex flex-col items-center">
-          <img
-            src={mapToWeatherIconsPath(icon)}
-            alt={icon}
-            width={40}
-            height={40}
-          />
-          <div className="text-xs text-muted-foreground text-center">
-            {condition}
-          </div>
-        </div>
-        <div className="text-lg font-semibold flex-1 flex items-end">
-          <div>{temp}°</div>
-        </div>
-      </CardContent>
-    </Card>
+    <div className="md:col-span-6 grid grid-cols-3 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+      {data?.map((d) => (
+        <WeatherCard
+          key={d.id}
+          title={format(d.date, "EEE")}
+          icon={d.icon}
+          maxTemp={d.max}
+          minTemp={d.min}
+        />
+      ))}
+    </div>
+  );
+}
+
+export function LocationForecastSkeleton() {
+  return (
+    <div className="md:col-span-6 grid grid-cols-3 sm:grid-cols-3 lg:grid-cols-5 gap-3">
+      {Array.from({ length: 5 }).map((_, i) => (
+        <WeatherCardSkeleton key={i} />
+      ))}
+    </div>
   );
 }

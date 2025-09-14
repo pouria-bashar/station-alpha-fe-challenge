@@ -88,7 +88,7 @@ app.get("/api/reverse-geocode", async (_req, res) => {
       return missingLatLonResponse(res);
     }
 
-    const url = new URL(`${OPEN_WEATHER_BASE_URL}/geo/1.0/reverse`);
+    const url = new URL("https://api.openweathermap.org/geo/1.0/reverse");
     url.searchParams.set("lat", lat);
     url.searchParams.set("lon", lon);
     url.searchParams.set("limit", "1");

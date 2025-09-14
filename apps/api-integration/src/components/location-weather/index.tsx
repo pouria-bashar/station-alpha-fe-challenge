@@ -1,5 +1,5 @@
 import { Card, CardContent } from "@/components/ui/card";
-import { mapToWeatherIconsPath } from "@/lib/icon-mapping";
+import { mapToWeatherIcon } from "@/lib/icon-mapping";
 import { format } from "date-fns";
 
 interface LocationWeatherCardProps {
@@ -9,42 +9,51 @@ interface LocationWeatherCardProps {
   wind: string;
   pressure: number;
   icon: string;
+  sunrise?: number;
+  sunset?: number;
 }
 export default function LocationWeatherCard({
   temperature,
-  condition,
   realFeel,
   wind,
-  pressure,
   icon,
+  sunrise,
+  sunset,
 }: LocationWeatherCardProps) {
   const day = format(new Date(), "EEEE");
   const date = format(new Date(), "MMM d, yyyy");
 
+  const Icon = mapToWeatherIcon(icon);
   return (
     <Card className="border-0 rounded-sm bg-background">
-      <CardContent>
-        <div className="text-xs text-zinc-400">{day}</div>
-        <div className="text-[10px] text-zinc-500">{date}</div>
-        <div className="flex items-center gap-2 mt-2">
-          <div>
-            <img
-              src={mapToWeatherIconsPath(icon)}
-              alt={condition}
-              width={42}
-              height={42}
-            />
+      <CardContent className="flex gap-4">
+        <div className="flex-1 flex flex-col">
+          <div className="text-lg">{day}</div>
+          <div className="text-xs text-muted-foreground">{date}</div>
+          <div className="flex gap-2 flex-1 items-center">
+            <div className="mt-4 text-6xl font-semibold flex-1">
+              {temperature.toFixed(0)}°
+            </div>
           </div>
         </div>
-        <div className="flex gap-2">
-          <div className="mt-4 text-xl font-semibold flex-1">
-            {temperature}°
+        <div className="flex-1 flex gap-2 flex-col">
+          <div className="flex-1 flex items-center justify-center">
+            <Icon.Icon className="w-10 h-10" fill={Icon.color} />
           </div>
-        </div>
-        <div className="mt-4 space-y-1 text-[11px] text-zinc-400">
-          <p>Real Feel: {realFeel}°</p>
-          <p>Wind: {wind}</p>
-          <p>Pressure: {pressure}MB</p>
+          <div className="mt-4 space-y-1 text-xs text-muted-foreground flex-1">
+            <p>Real Feel: {realFeel.toFixed(0)}°</p>
+            <p>Wind: {wind}</p>
+          </div>
+          <div className="mt-4 space-y-1 text-xs text-muted-foreground">
+            <p>
+              Sunrise:{" "}
+              {sunrise ? format(new Date(sunrise * 1000), "h:mm a") : "N/A"}
+            </p>
+            <p>
+              Sunset:{" "}
+              {sunset ? format(new Date(sunset * 1000), "h:mm a") : "N/A"}
+            </p>
+          </div>
         </div>
       </CardContent>
     </Card>

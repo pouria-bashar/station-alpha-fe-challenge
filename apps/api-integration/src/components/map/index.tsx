@@ -14,6 +14,10 @@ const customMarkerIcon = L.icon({
   popupAnchor: [0, -38],
 });
 
+function normalizeLongitude(lon: number): number {
+  return ((((lon + 180) % 360) + 360) % 360) - 180;
+}
+
 const DEFAULT_ZOOM = 3;
 export default function Map() {
   const { location } = useAppConfig();
@@ -21,7 +25,7 @@ export default function Map() {
   const position: LatLngTuple = [location?.lat, location?.lon];
 
   return (
-    <Card className="border-0">
+    <Card className="border-0 rounded-sm">
       <CardHeader>
         <CardTitle className="flex flex-col gap-2">
           <div>Global map</div>
@@ -64,8 +68,8 @@ function MapMarker() {
     }
   }, [location, map]);
 
-  const onPick = (lat: number, lon: number, name: string, country: string) => {
-    setLocation({ name, country, lat, lon });
+  const onPick = (lat: number, lon: number, name: string, country?: string) => {
+    setLocation({ name, lat, lon, country: country || "Unknown" });
   };
 
   const setMarker = () => {
@@ -105,7 +109,7 @@ function ClickHandler({
           : `${lat.toFixed(4)}, ${lon.toFixed(4)}`;
         setMarker([lat, lon]);
         setLabel(name);
-        onPick(lat, lon, name, data[0].country);
+        onPick(lat, normalizeLongitude(lon), name, data[0]?.country);
       } catch {
         const fallback = `${lat.toFixed(4)}, ${lon.toFixed(4)}`;
         setMarker([lat, lon]);

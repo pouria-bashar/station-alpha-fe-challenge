@@ -2,7 +2,6 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useAppConfig } from "@/hooks/useAppConfig";
 import { useLocationWeather } from "@/hooks/useLocationWeather";
-import { cn } from "@/lib/utils";
 import TodayForecastCard from ".";
 import ErrorCard from "../error-card";
 
@@ -30,29 +29,22 @@ export default function LocationWeatherWrapper() {
       wind={data.wind.speed.toString()}
       pressure={data.main.pressure}
       icon={data.weather[0].icon}
+      sunrise={data.sys?.sunrise}
+      sunset={data.sys?.sunset}
     />
   );
 }
 
-export function LocationWeatherSkeleton({ className }: { className?: string }) {
+export function LocationWeatherSkeleton() {
   return (
-    <Card className={cn("rounded-sm border-0 bg-background", className)}>
-      <CardContent>
-        <div className="space-y-1">
+    <Card className="rounded-sm border-0 bg-background">
+      <CardContent className="space-y-4">
+        <div className="space-y-2">
           <Skeleton className="h-3 w-20 bg-card" />
           <Skeleton className="h-3 w-28 bg-card" />
         </div>
 
-        <div className="flex items-end gap-3">
-          <div className="flex items-baseline gap-2">
-            <Skeleton className="h-12 w-28 bg-card" />
-            <Skeleton className="h-2.5 w-2.5 rounded-full bg-card mb-2" />
-          </div>
-
-          <Skeleton className="h-5 w-5 rounded-full bg-card mb-1" />
-
-          <Skeleton className="h-4 w-14 bg-card mb-1" />
-        </div>
+        <Skeleton className="h-12 w-12 bg-card rounded-full" />
 
         <div className="space-y-2 pt-1">
           <Skeleton className="h-3 w-40 bg-card" />

@@ -1,7 +1,7 @@
 import "flag-icons/css/flag-icons.min.css";
 import AppHeader from "./components/app-header";
-import HourlyForecastWrapper from "./components/horuly-forecast/wrapper";
-import LocationForecastWrapper from "./components/location-forecast/wrapper";
+import HourlyForecastWrapper from "./components/horuly-forecast";
+import LocationForecastWrapper from "./components/location-forecast";
 import LocationWeatherWrapper from "./components/location-weather/wrapper";
 import Map from "./components/map";
 import OtherCities from "./components/other-cities";
@@ -27,7 +27,7 @@ export default function App() {
 
 const ForecastSection = () => {
   return (
-    <Card className="border-0">
+    <Card className="border-0 rounded-sm">
       <CardHeader>
         <CardTitle>Forecast</CardTitle>
       </CardHeader>

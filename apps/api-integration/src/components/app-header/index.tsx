@@ -1,9 +1,9 @@
 import { useAppConfig } from "@/hooks/useAppConfig";
 
+import CitySearchInput from "@/components/city-search-input";
+import { Button } from "@/components/ui/button";
 import { Moon, Sun, Thermometer } from "lucide-react";
 import { useTheme } from "next-themes";
-import CitySearchInput from "../city-search-input";
-import { Button } from "../ui/button";
 
 export default function AppHeader() {
   const { location, unit, setUnit } = useAppConfig();
