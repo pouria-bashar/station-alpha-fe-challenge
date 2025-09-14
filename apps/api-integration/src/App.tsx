@@ -1,11 +1,9 @@
+import AppHeader from "@/components/app-header";
+import ForecastSection from "@/components/forecast-section";
+import HourlyForecastSection from "@/components/horuly-forecast-section";
+import MapSection from "@/components/map-section";
+import OtherCitiesSection from "@/components/other-cities-section";
 import "flag-icons/css/flag-icons.min.css";
-import AppHeader from "./components/app-header";
-import HourlyForecastWrapper from "./components/horuly-forecast";
-import LocationForecastWrapper from "./components/location-forecast";
-import LocationWeatherWrapper from "./components/location-weather/wrapper";
-import Map from "./components/map";
-import OtherCities from "./components/other-cities";
-import { Card, CardContent, CardHeader, CardTitle } from "./components/ui/card";
 
 export default function App() {
   return (
@@ -15,29 +13,12 @@ export default function App() {
         <div>
           <div className="space-y-6">
             <ForecastSection />
-            <HourlyForecastWrapper />
-            <OtherCities />
-            <Map />
+            <HourlyForecastSection />
+            <OtherCitiesSection />
+            <MapSection />
           </div>
         </div>
       </main>
     </div>
   );
 }
-
-const ForecastSection = () => {
-  return (
-    <Card className="border-0 rounded-sm">
-      <CardHeader>
-        <CardTitle>Forecast</CardTitle>
-      </CardHeader>
-      <CardContent className="grid gap-4 md:grid-cols-9">
-        {/* big monday card */}
-        <div className="md:col-span-3">
-          <LocationWeatherWrapper />
-        </div>
-        <LocationForecastWrapper />
-      </CardContent>
-    </Card>
-  );
-};

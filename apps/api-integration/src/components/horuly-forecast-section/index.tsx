@@ -13,7 +13,7 @@ import { useAppConfig } from "@/hooks/useAppConfig";
 import { useLocationForecast } from "@/hooks/useLocationForecast";
 import { format } from "date-fns";
 
-export default function HourlyForecastWrapper() {
+export default function HourlyForecastSection() {
   const { location, unit } = useAppConfig();
   const { data, isLoading, error, refetch } = useLocationForecast({
     lat: location.lat,

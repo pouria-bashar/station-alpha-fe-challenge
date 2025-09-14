@@ -8,7 +8,7 @@ import { useTopCities } from "@/hooks/useTopCities";
 import React from "react";
 
 const LIMIT = 7;
-export default function OtherCities() {
+export default function OtherCitiesSection() {
   const { location } = useAppConfig();
   const { data, isLoading, error, refetch } = useTopCities({
     country: location.country,

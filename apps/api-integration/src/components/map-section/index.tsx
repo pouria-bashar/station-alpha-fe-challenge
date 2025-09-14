@@ -19,7 +19,7 @@ function normalizeLongitude(lon: number): number {
 }
 
 const DEFAULT_ZOOM = 3;
-export default function Map() {
+export default function MapSection() {
   const { location } = useAppConfig();
 
   const position: LatLngTuple = [location?.lat, location?.lon];

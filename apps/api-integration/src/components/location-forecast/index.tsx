@@ -20,9 +20,16 @@ export default function LocationForecastWrapper() {
   if (isLoading) return <LocationForecastSkeleton />;
   if (error)
     return (
-      <ErrorCard message="Failed to load week days data" onRetry={refetch} />
+      <ErrorCard
+        message="Failed to load week days data"
+        onRetry={refetch}
+        className="col-span-6"
+      />
     );
-  if (!data) return <ErrorCard message="No data" onRetry={refetch} />;
+  if (!data)
+    return (
+      <ErrorCard message="No data" onRetry={refetch} className="col-span-6" />
+    );
 
   return (
     <div className="md:col-span-6 grid grid-cols-3 sm:grid-cols-3 lg:grid-cols-5 gap-3">

@@ -16,7 +16,7 @@ export default function ErrorCard({
   return (
     <Card
       className={cn(
-        "rounded-sm col-span-6 items-center justify-center border-0",
+        "rounded-sm items-center justify-center border-0",
         className
       )}
     >
