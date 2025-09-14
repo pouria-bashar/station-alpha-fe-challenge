@@ -7,21 +7,25 @@ This challenge focuses on your ability to integrate with external APIs, handle a
 You will be creating a weather application that integrates with a public weather API and provides users with current weather information and forecasts. The application should include:
 
 1. **Current Weather Display**
+
    - Show current weather information for a location
    - Display temperature, conditions, humidity, wind speed, etc.
    - Include appropriate weather icons based on conditions
 
 2. **Search Functionality**
+
    - Allow users to search for weather by city name or zip code
    - Implement autocomplete/suggestions for city search
    - Remember recent searches
 
 3. **Extended Forecast**
+
    - Display a 5-day forecast with daily summaries
    - Show high/low temperatures for each day
    - Include weather conditions and probability of precipitation
 
 4. **Weather Map**
+
    - Implement a visual map showing weather patterns
    - Allow users to click on the map to get weather for that location
 
@@ -52,6 +56,7 @@ npm run dev
 ## Recommended Weather APIs
 
 You can use any of the following APIs (or another of your choice):
+
 - [OpenWeatherMap](https://openweathermap.org/api)
 - [WeatherAPI](https://www.weatherapi.com/)
 - [Visual Crossing Weather](https://www.visualcrossing.com/weather-api)
@@ -87,7 +92,6 @@ You will be evaluated on:
 
 Good luck!
 
-
 ## How to run
 
 ```bash
@@ -107,5 +111,10 @@ Create a .env file in the project root with:
 OPEN_WEATHER_KEY=your_openweather_api_key
 RAPID_API_KEY=your_rapidapi_key
 ```
-* OPEN_WEATHER_KEY → required for weather and geocoding data
-* RAPID_API_KEY → used to look up top cities for a country by population
+
+- OPEN_WEATHER_KEY → required for weather and geocoding data
+- RAPID_API_KEY → used to look up top cities for a country by population
+
+## Demo
+
+🎥 Watch the demo here: [Demo Video](https://drive.google.com/file/d/1X7DujtpgzfMuFwi-UjVPIraCEB91ODKV/view)
